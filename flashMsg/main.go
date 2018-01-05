@@ -21,16 +21,16 @@ func showMessage(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == http.ErrNoCookie {
 			fmt.Fprintln(w, "no message found")
-		} else {
-			rc := http.Cookie{
-				Name:    "flash",
-				MaxAge:  -1,
-				Expires: time.Unix(1, 0),
-			}
-			http.SetCookie(w, &rc)
-			val, _ := base64.URLEncoding.DecodeString(c.Value)
-			fmt.Fprintln(w, string(val))
 		}
+	} else {
+		rc := http.Cookie{
+			Name:    "flash",
+			MaxAge:  -1,
+			Expires: time.Unix(1, 0),
+		}
+		http.SetCookie(w, &rc)
+		val, _ := base64.URLEncoding.DecodeString(c.Value)
+		fmt.Fprintln(w, string(val))
 	}
 }
 
